@@ -1,6 +1,7 @@
 import * as React from "react";
 import AppCarList from "../../components/AppCarList";
 import AppSearchInput from "../../components/AppSearchInput";
+import AppActiveFilters from "../../components/AppActiveFilters";
 
 const IndexPage = () => {
   return (
@@ -19,13 +20,24 @@ const IndexPage = () => {
             and see how many visits to the mechanic it has had along with some
             basic info
           </p>
-          <a
-            className="btn btn-dark"
-            href="https://linktr.ee/nicolascalev"
-            target="_blank"
-          >
-            Connect with me ↗
-          </a>
+          <div className="d-flex flex-wrap">
+            <a
+              className="btn btn-dark"
+              href="https://linktr.ee/nicolascalev"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Connect with me ↗
+            </a>
+            <a
+              className="btn btn-text ms-0 mt-2 ms-sm-2 mt-sm-0"
+              href="https://github.com/nicolascalev/car-dealership"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Frontend repo ↗
+            </a>
+          </div>
         </div>
 
         <div className="d-none d-md-block col-3"></div>
@@ -37,7 +49,7 @@ const IndexPage = () => {
         <div className="col-12 col-md-6">
           <div className="pt-3">
             <AppSearchInput></AppSearchInput>
-
+            <AppActiveFilters></AppActiveFilters>
             <AppCarList></AppCarList>
           </div>
         </div>

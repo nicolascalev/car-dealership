@@ -1,6 +1,7 @@
 import React from "react";
 import { useStoreActions } from "easy-peasy";
 import { useDebouncedCallback } from 'use-debounce';
+import AppFiltersModal from "./AppFiltersModal";
 
 function AppSearchInput() {
   const setSearchLabel = useStoreActions((actions) => actions.setSearchLabel);
@@ -22,9 +23,7 @@ function AppSearchInput() {
         aria-describedby="button-addon2"
         onChange={(e) => debouncedSetSearchLabel(e.target.value)}
       />
-      <button className="btn btn-outline-dark" type="button" id="button-addon2">
-        Filters
-      </button>
+      <AppFiltersModal></AppFiltersModal>
     </div>
   );
 }
