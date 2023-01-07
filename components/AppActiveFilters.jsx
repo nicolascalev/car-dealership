@@ -1,5 +1,5 @@
 import React from "react";
-import { useStore, useStoreState } from "easy-peasy";
+import { useStoreState } from "easy-peasy";
 
 function AppActiveFilters() {
   const newestYearFilter = useStoreState((state) => state.newestYearFilter);
@@ -9,22 +9,22 @@ function AppActiveFilters() {
   return (
     <div className="d-flex mb-3" style={{ gap: "5px" }}>
       {newestYearFilter && (
-        <span class="badge rounded-pill text-bg-light">
+        <span className="badge rounded-pill text-bg-light">
           Filter active: Year
         </span>
       )}
       {maxPriceFilter && (
-        <span class="badge rounded-pill text-bg-light">
+        <span className="badge rounded-pill text-bg-light">
           Filter active: Price
         </span>
       )}
       {maxOwnersFilter && (
-        <span class="badge rounded-pill text-bg-light">
+        <span className="badge rounded-pill text-bg-light">
           Filter active: Owners
         </span>
       )}
       {!newestYearFilter && !maxPriceFilter && !maxOwnersFilter && (
-        <span class="badge rounded-pill text-bg-light">No filters active</span>
+        <span className="badge rounded-pill text-bg-light">No filters active</span>
       )}
     </div>
   );

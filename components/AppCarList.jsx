@@ -4,16 +4,13 @@ import AppCarItem from "./AppCarItem";
 import AppMessage from "./AppMessage";
 import AppLoader from "./AppLoader";
 import { useStoreState } from "easy-peasy";
+import qs from "qs";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 function AppCarList() {
-  const searchLabel = useStoreState((state) => state.searchLabel);
-
-  let apiUrl = process.env.GATSBY_API_URL + "/api/cars?populate=photo";
-  apiUrl = searchLabel
-    ? `${apiUrl}&filters[label][$containsi]=${searchLabel}`
-    : apiUrl;
+  const { query } = useQuery();
+  let apiUrl = `${process.env.GATSBY_API_URL}/api/cars?${query}`;
 
   const { data, error, isLoading } = useSWR(apiUrl, fetcher);
 
@@ -61,6 +58,50 @@ function AppCarList() {
 }
 
 export default AppCarList;
+
+function useQuery() {
+  const searchLabel = useStoreState((state) => state.searchLabel);
+  const newestYearFilter = useStoreState((state) => state.newestYearFilter);
+  const maxPriceFilter = useStoreState((state) => state.maxPriceFilter);
+  const maxOwnersFilter = useStoreState((state) => state.maxOwnersFilter);
+
+  let queryObject = {
+    populate: 'photo',
+    filters: {
+      $and: [],
+    },
+  };
+
+  if (searchLabel) {
+    queryObject.filters.$and.push({
+      label: { $containsi: searchLabel },
+    });
+  }
+
+  if (newestYearFilter) {
+    queryObject.filters.$and.push({
+      year: { $lte: newestYearFilter },
+    });
+  }
+
+  if (maxPriceFilter) {
+    queryObject.filters.$and.push({
+      price: { $lte: maxPriceFilter },
+    });
+  }
+
+  if (maxOwnersFilter) {
+    queryObject.filters.$and.push({
+      owners: { $lte: maxOwnersFilter },
+    });
+  }
+
+  const query = qs.stringify(queryObject, {
+    encodeValuesOnly: true,
+  });
+
+  return { query };
+}
 
 function getPhotoUrl(car) {
   if (car.attributes.photo?.data?.attributes?.url) {
