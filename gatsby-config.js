@@ -6,5 +6,16 @@ module.exports = {
     title: `Car Dealership`,
     siteUrl: `https://www.yourdomain.tld`,
   },
-  plugins: [],
+  plugins: [
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        icon: 'public/static/favicon.PNG',
+      },
+    },
+  ],
 }
+
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
